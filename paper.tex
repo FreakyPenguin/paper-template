@@ -1,0 +1,153 @@
+\def\RELEASE{0}  % If set disabled notes etc.
+\def\ANON{0}     % If set switches to anon name and removes authors
+\def\SQUEEZE{0}  % If set applies space hacks
+
+\documentclass[a4paper,twocolumn,10pt]{article}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{comment}
+\usepackage[inline]{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{libertine}
+\usepackage{microtype}
+
+\microtypecontext{spacing=nonfrench}
+
+\hypersetup{
+  pdflang={en},
+  pdfdisplaydoctitle}
+
+\definecolor[named]{OurPurple}{cmyk}{0.55,1,0,0.15}
+\definecolor[named]{OurDarkBlue}{cmyk}{1,0.58,0,0.21}
+\hypersetup{
+  colorlinks,
+  linkcolor=OurPurple,
+  citecolor=OurPurple,
+  urlcolor=OurDarkBlue,
+  filecolor=OurDarkBlue}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Space Hacks
+\if \SQUEEZE 1
+%\usepackage{titling}
+%\setlength{\droptitle}{-1cm}
+
+
+%\usepackage[subtle]{savetrees}    %space hack
+%\usepackage{titlesec} % Provides \titlespacing command for adjusting spacing before and after sections
+%\titlespacing*{\paragraph}{0pt}{2mm}{2mm}
+%\titlespacing*{\section}{0pt}{3mm}{2mm}  % Left indent, above, below
+%\titlespacing*{\subsection}{0pt}{3mm}{1mm}  % Left indent, above, below
+%\titlespacing*{\subsubsection}{0pt}{2mm}{1mm}  % Left indent, above, below
+
+%\usepackage{setspace}
+%\captionsetup{font={small,stretch=0.6},skip=10pt, belowskip=-8pt}
+\captionsetup{skip=5pt, belowskip=-8pt}
+
+\setlist[itemize]{
+  leftmargin=*,
+  itemsep=2pt,
+  topsep=2pt}
+
+\renewcommand\figurename{Fig.}
+\renewcommand*\figureautorefname{Fig.}
+\renewcommand\tablename{Tab.}
+\renewcommand*\tableautorefname{Tab.}
+
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Snospace~{\S{}}
+\def\sectionautorefname{\Snospace}
+\def\subsectionautorefname{\Snospace}
+\def\subsubsectionautorefname{\Snospace}
+
+
+\if \RELEASE 1
+  \def\NOTES{0}
+\else
+  \def\NOTES{1}
+\fi
+\if \NOTES 1
+  \newcommand{\XXX}[1]{{\color{red}{XXX {#1}}}}
+  \newcommand{\antoine}[1]{{\color{teal}{[\textbf{AK:} {#1}]}}}
+  %\newcommand{\authorB}[1]{{\color{violet}{[\textbf{AB:} {#1}]}}}
+  %\newcommand{\authorC}[1]{{\color{orange}{[\textbf{AC:} {#1}]}}}
+  %\newcommand{\authorD}[1]{{\color{olive}{[\textbf{AD:} {#1}]}}}
+  \newcommand{\todo}[1]{{\color{blue}{TODO: {#1}}}}
+\else
+  \newcommand{\XXX}[1]{}
+  \newcommand{\antoine}[1]{}
+  %\newcommand{\authorB}[1]{}
+  %\newcommand{\authorC}[1]{}
+  %\newcommand{\authorD}[1]{}
+  \newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\eg}{e.g.\xspace}
+\newcommand{\ie}{i.e.\xspace}
+\newcommand{\cf}{cf.\xspace}
+
+\if \ANON 1
+  \newcommand{\sys}{SystemX\xspace}
+\else
+  \newcommand{\sys}{MySystem\xspace}
+\fi
+
+\lstset{
+  basicstyle=\small,%\ttfamily,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  breakindent=0pt,
+  resetmargins=true
+  aboveskip=0pt,
+  belowskip=-5pt,
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\date{}
+\title{\sys}
+
+\if \ANON 1
+  \author{Anonymous Submission \#XXX (\pageref{page:last pages}}
+\else
+  \author{
+    Foo\\
+    Max Planck Institute for Software Systems
+    \and
+    Antoine Kaufmann\\
+    Max Planck Institute for Software Systems
+    }
+\fi
+
+\maketitle
+
+\input{abstract}
+
+\input{intro}
+\input{bg}
+\input{design}
+\input{impl}
+\input{eval}
+\input{relwk}
+\input{concl}
+\if \ANON 0
+\input{acks}
+\fi
+
+
+\bibliographystyle{plain}
+\bibliography{paper,bibdb/papers,bibdb/strings,bibdb/defs}
+
+\label{page:last}
+\end{document}

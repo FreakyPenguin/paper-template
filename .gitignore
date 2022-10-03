@@ -1,0 +1,14 @@
+.latex.out/
+paper.pdf
+.vscode
+arxiv.tar.gz
+arxiv
+bin/textidote.jar
+paper.aux
+paper.bbl
+paper.blg
+paper.fls
+paper.fdb_latexmk
+paper.log
+paper.out
+paper.synctex.gz
