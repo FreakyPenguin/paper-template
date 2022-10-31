@@ -15,6 +15,7 @@ build_a:
 spllcheck:
   stage: test
   script:
+    - make check TEXIDOTE_EXTRA=--ci
     - make check-html TEXIDOTE_EXTRA=--ci
   artifacts:
     paths:
