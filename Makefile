@@ -34,6 +34,7 @@ $(PAPER_NAME).pdf: $(PAPER_DEPS)
 clean:
 	$(LATEX) --clean-all -O .latex.out
 	@rm -frv .latex.out $(PDFS) $(GNUPLOTS) arxiv arxiv.tar.gz
+	@rm -rfv spellcheck.html
 
 arxiv: arxiv.tar.gz
 
