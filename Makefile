@@ -40,8 +40,8 @@ arxiv: arxiv.tar.gz
 arxiv.tar.gz: $(PAPER_NAME).pdf
 	rm -rf arxiv
 	mkdir -p arxiv
-	latexpand --empty-comments paper.tex >arxiv/ms.tex
-	cp .latex.out/paper.bbl arxiv/ms.bbl
+	latexpand --empty-comments $(PAPER_NAME).tex >arxiv/ms.tex
+	cp .latex.out/$(PAPER_NAME).bbl arxiv/ms.bbl
 	mkdir -p arxiv/figures
 	cp figures/*.pdf figures/*.png arxiv/figures/
 	cp acmart.cls arxiv/
