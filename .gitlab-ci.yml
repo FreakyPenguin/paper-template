@@ -1,0 +1,17 @@
+image: registry.mpi-sws.org/osnet-latex-dev
+
+stages:
+  - build
+  - spellcheck
+  - testarxiv
+
+build:
+  script:
+    - make
+  artifacts:
+    paths:
+      - paper.pdf
+
+spllcheck:
+  script:
+    - make check
