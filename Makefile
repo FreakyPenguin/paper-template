@@ -4,8 +4,9 @@ TEX := $(shell find ./ -type f -name "*.tex")
 CLS := $(shell find ./ -type f -name "*.cls")
 BIB := $(shell find ./ -type f -name "*.bib")
 FIG := $(shell find ./figures -type f -name "*.pdf")
-GNUPLOTS := $(addsuffix .pdf,$(basename $(shell find ./figures -type f -name "*.gnuplot" | grep -v common)))
-PAPER_DEPS := $(TEX) $(CLS) $(BIB) $(FIG) $(GNUPLOTS)
+GNUPLOT_PDFS := $(addsuffix .gnuplot.pdf,$(basename $(shell find ./figures -type f -name "*.gnuplot" | grep -v common)))
+GNUPLOT_TEXS := $(addsuffix .gnuplot.tex,$(basename $(shell find ./figures -type f -name "*.gnuplot" | grep -v common)))
+PAPER_DEPS := $(TEX) $(CLS) $(BIB) $(FIG) $(GNUPLOT_PDFS) $(GNUPLOT_TEXS)
 LATEX := python3 ./bin/latexrun --color auto --bibtex-args="-min-crossrefs=9000"
 
 all: $(PAPER_NAME).pdf
@@ -20,7 +21,7 @@ all: $(PAPER_NAME).pdf
 	  -sOutputFile=$@ $@.tmp.pdf
 	rm -f $@.tmp.pdf
 
-%.pdf: %.gnuplot %.dat figures/common.gnuplot
+%.gnuplot.pdf: %.gnuplot %.dat figures/common.gnuplot
 	(cd $(dir $@) ; gnuplot $(notdir $<)) | pdfcrop - $@
 
 %.gnuplot.tex: %.gnuplot %.dat figures/common.gnuplot
@@ -33,7 +34,7 @@ $(PAPER_NAME).pdf: $(PAPER_DEPS)
 
 clean:
 	$(LATEX) --clean-all -O .latex.out
-	@rm -frv .latex.out $(PDFS) $(GNUPLOTS) arxiv arxiv.tar.gz
+	@rm -frv .latex.out $(PDFS) $(GNUPLOT_PDS) $(GNUPLOT_TEXS) arxiv arxiv.tar.gz
 	@rm -rfv spellcheck.html
 
 arxiv: arxiv.tar.gz
