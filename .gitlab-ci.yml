@@ -15,4 +15,7 @@ build_a:
 spllcheck:
   stage: test
   script:
-    - make check
+    - make check-html TEXIDOTE_EXTRA=--ci
+  artifacts:
+    paths:
+      - spellcheck.html
