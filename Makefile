@@ -50,9 +50,13 @@ arxiv.tar.gz: $(PAPER_NAME).pdf
 	(cd arxiv && tar czf ../arxiv.tar.gz *)
 
 
+TEXIDOTE_ARGS := --check en --dict .words.utf-8.add --replace .spell-replace.txt
 
 check: bin/textidote.jar
-	java -jar bin/textidote.jar --check en --dict .dict.txt --replace .spell-replace.txt $(PAPER_NAME).tex
+	java -jar bin/textidote.jar $(TEXIDOTE_ARGS) $(PAPER_NAME).tex
+
+check-html: bin/textidote.jar
+	java -jar bin/textidote.jar $(TEXIDOTE_ARGS) --output html $(PAPER_NAME).tex > spellcheck.html
 
 bin/textidote.jar:
 	[ -f /opt/texidote.jar ] && ln -s /opt/texidote.jar $@
