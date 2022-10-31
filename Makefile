@@ -50,7 +50,10 @@ arxiv.tar.gz: $(PAPER_NAME).pdf
 	(cd arxiv && tar czf ../arxiv.tar.gz *)
 
 
-TEXIDOTE_ARGS := --check en --dict .words.utf-8.add --replace .spell-replace.txt
+TEXIDOTE_ARGS := --check en \
+  --dict .words.utf-8.add \
+  --replace .spell-replace.txt \
+  $(TEXIDOTE_EXTRA)
 
 check: bin/textidote.jar
 	java -jar bin/textidote.jar $(TEXIDOTE_ARGS) $(PAPER_NAME).tex
