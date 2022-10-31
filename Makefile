@@ -55,7 +55,8 @@ check: bin/textidote.jar
 	java -jar bin/textidote.jar --check en --dict .dict.txt --replace .spell-replace.txt $(PAPER_NAME).tex
 
 bin/textidote.jar:
-	wget -O $@ https://github.com/sylvainhalle/textidote/releases/download/v0.8.2/textidote.jar
+	[ -f /opt/texidote.jar ] && ln -s /opt/texidote.jar
+	[ -f $@ ] || wget -O $@ https://github.com/sylvainhalle/textidote/releases/download/v0.8.2/textidote.jar
 
 
 updatebib:
