@@ -73,4 +73,4 @@ updatebib:
 	git clone git@github.com:FreakyPenguin/bibliography.git bibdb
 	rm -rf bibdb/.git
 
-.PHONY: all clean arxiv check updatebib
+.PHONY: all clean arxiv check check-html updatebib
