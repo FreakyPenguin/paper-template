@@ -12,7 +12,7 @@ build_a:
     paths:
       - paper.pdf
 
-spllcheck:
+spellcheck:
   stage: test
   script:
     - make check TEXIDOTE_EXTRA=--ci
