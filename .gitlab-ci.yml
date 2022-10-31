@@ -2,10 +2,10 @@ image: registry.mpi-sws.org/osnet-latex-dev
 
 stages:
   - build
-  - spellcheck
-  - testarxiv
+  - test
 
-build:
+build_a:
+  stage: build
   script:
     - make
   artifacts:
@@ -13,5 +13,6 @@ build:
       - paper.pdf
 
 spllcheck:
+  stage: test
   script:
     - make check
