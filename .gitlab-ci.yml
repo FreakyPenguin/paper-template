@@ -1,4 +1,4 @@
-image: registry.mpi-sws.org/osnet-latex-dev
+image: registry-ro.mpi-sws.org/os-public/latex-dev
 
 stages:
   - build
