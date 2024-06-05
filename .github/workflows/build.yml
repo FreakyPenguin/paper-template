@@ -1,0 +1,35 @@
+name: Compile and Spellcheck Paper
+
+on: [push]
+
+jobs:
+  build:
+    name: Build PDF
+    runs-on: ubuntu-latest
+    container:
+      image: registry-ro.mpi-sws.org/os-public/latex-dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run make to build PDF
+        run: make
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdf
+          path: paper.pdf
+  spellcheck:
+    name: Spell check paper
+    runs-on: ubuntu-latest
+    container:
+      image: registry-ro.mpi-sws.org/os-public/latex-dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run make to build PDF
+        run: |
+          make check TEXIDOTE_EXTRA=--ci
+          make check-html TEXIDOTE_EXTRA=--ci
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spellcheck-report
+          path: spellcheck.html
